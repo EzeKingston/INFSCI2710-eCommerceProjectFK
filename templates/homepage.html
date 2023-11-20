@@ -1,118 +1,53 @@
-<!-- <!DOCTYPE html>  -->
-
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
- <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <!---- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-     <!-- Bootstrap CSS -->
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="homepagestyle.css"> 
-   
+    <title>Top Products Carousel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/homepagestyle.css' %}">
 </head>
-
-    <body>
-        <div class="row">
-            <div class="banner">
-              <img src="companyxlogo.png" alt="Company Logo" class="img-fluid">
-            </div>
-        </div>
-
-    <p class="title"><center><h2>The one stop shop for technologists</h2></center></p> 
-    <center><input type="text" placeholder="Search.."></center>
-     </head>
-
 <body>
+
 <div class="container">
-    <div id = "productCarousel" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-        <div class = "carousel-item active">
-    <div class="row">
+    <h2 class="mt-5 mb-3">Top 10 Products by Sales</h2>
 
-        <div class="col-md-4">
-        <div id = "variableWdiget1" class= "widget-container">
-            <h2 id = "title"> HMDI Cable</h2>
-            <img id = "widgetImage" class = "widget-image" src="hdmi.jpeg" alt="Product Image">
-            <p id = "information"> 6ft HDMI cable with Fast connectivity 
-                standard function of transferring<br>
-                high-definition audio and video<br>
-                can be used for computer, TV, monitor, or projector</p>
-                <p id = "price">Price: $12.99</p>
-                <button onclick = "updateWidget('new Title', 'update content', 'usbc.jpeg')"> Next Product</button>
-        </div>
-        </div>
+    <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            {{random_products}}
+            {% for product in random_products %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="widget-container">
+                            <h2 class="title">{{ product.name }}</h2>
+                            <img class="widget-image" src="{{ product.image.url }}" alt="{{ product.name }} Image">
+                            <p class="information">{{ product.description }}</p>
+                            <p class="price">Price: ${{ product.price }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
 
-        <div class="col-md-4 ms-auto">
-        <div id = "variableWdiget2" class= "widget-container">
-            <h2 id = "title"> USB-C port</h2>
-            <img id = "widgetImage" class = "widget-image" src="usbc.jpeg" alt="Product Image">
-            <p id = "information"> Designed to hold 16GB of data. Compatible with MacAir, 
-                MacBook Pro, etc</p>
-                <p id = "price">Price: $12.99</p>
-                <button onclick = "updateWidget('new Title', 'update content', 'mac.jpeg')"> Next Product</button>
         </div>
-        </div>
-
-        <div class="col-md-4 ms-end">
-        <div id = "variableWdiget3" class= "widget-container">
-            <h2 id = "title"> Macbook Pro</h2>
-            <img id = "widgetImage" class = "widget-image" src="mac.jpeg" alt="Product Image">
-            <p id = "information"> with 14.4 inch display <br> resolution of 2560x1600 pixels <br>
-                powered by Core i5 processor 16GB of RAM <br>
-                512GB of SSD</p>
-                <p id = "price">Price: $1299.99</p>
-                <button onclick = "updateWidget('new Title', 'update content', 'mac.jpeg')"> Next Product</button>
-        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
 
-</div>
-<button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
-  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-  <span class="visually-hidden">Previous</span>
-</button>
-<button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
-  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-  <span class="visually-hidden">Next</span>
-</button>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-        <script>
-            
-            function updateWidget(newtitle, newinformation, newprice,newimage){
-               const widget = docuement.getElementbyId('variableWidget');
-                widget.querySelector('#title').innerText=newtitle;
-                widget.querySelector('#information').innerText=newinformation;
-                widget.querySelector('#price').innerText=newprice;
-                const widgetImage = widget.querySelector('.widget-image');
-                widgetImage.src=newimage; 
-                widget.alt='${newinformation} Image'; 
-
-            }
-        </script>
-   
-    
-    
-   
-        
- <style>
-.widget-container {
-  margin-left: 10;   
-  border: 1px solid #ccc;
-  padding: 0%;
-  
-}
-
- </style> 
-    </body>
-    </html>
- {% endblock %}
-
-
-        
+</body>
+</html>
+{% endblock %}

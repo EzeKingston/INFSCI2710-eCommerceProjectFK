@@ -9,13 +9,18 @@
                 <th>Name</th>
                 <th>Description</th>
                 <th>Stock</th>
+                <th>Rating</th>
             </tr>
         </thead>
         <tbody>
             {% for product in products_list %}
             <tr>
                 <td>
-                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-thumbnail" style="width: 50px; height: auto;">
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid">
+                    {% else %}
+                    <p>No image available</p>
+                    {% endif %}
                 </td>
                 <td>
                     <a href="{% url 'product_page' product.id %}">{{ product.name }}</a>
@@ -25,6 +30,9 @@
                 </td>
                 <td>
                     {{ product.stock }}
+                </td>
+                <td>
+                    {{ product.avg_rating }}
                 </td>
             </tr>
             {% endfor %}

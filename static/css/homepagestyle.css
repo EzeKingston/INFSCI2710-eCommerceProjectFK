@@ -1,0 +1,23 @@
+
+.widget-container1 {
+  margin-left: 100;   
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.widget-container2 {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+
+.widget-container3 {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: right;
+}
+
+
+
